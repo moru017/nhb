@@ -1,30 +1,51 @@
-class Person
-    def initialize(age, name, gender)
+class Todo
+    def initialize(id,name)
         
-        @age = age
-        @name = name
-        @gender = gender
+        @id = id
+        @name =name
     end
 
-    def say_hello
-        puts "こんにちは、私は#{@name},#{@age}歳です"
+    def format
+        return "{id: #{@id}, name: #{@name}}"
+    end
+end
+
+class TodoList
+    def initialize
+        @list = []
     end
 
-    def say_if_old_or_young
-        if @age <= 24
-            puts "若い"
-        else
-            puts "歳"
+    def append(todo_name)
+        p "appendが引数にしているtodo_nameは？"
+        p todo_name
+        adding_todo = Todo.new(
+            @list.length + 1,
+            todo_name
+        )
+        @list.push(adding_todo)
+    end
+
+    def output
+        p "listを出してみよう"
+        p @list
+        @list.each do |todo|
+            p todo
+            puts todo.format
         end
     end
 end
 
+first_todo = Todo.new(1, "お母さんに電話")
+socond_todo = Todo.new(2, "お父さんにメール")
 
-mamoru =Person.new(30,"mamorutanaka")
-mamoru.say_hello
-mamoru.say_if_old_or_young
-
-kid =Person.new(7,"kokoroterada")
-kid.say_hello
-kid.say_if_old_or_young
-
+list = TodoList.new
+loop do
+    puts "タスクを入力"
+    task_name = gets.chomp
+    p "受けとったタスクの名前は？"
+    puts task_name
+    list.append(task_name)
+    p "appen終了"
+    p list
+    list.output
+end
